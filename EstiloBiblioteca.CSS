@@ -154,7 +154,7 @@ body {
 
 /* Estilos para la sección de Biografía / Historia */
 .history-section {
-    margin-top: 3rem;
+    margin: 4rem auto;
 }
 
 .history-grid {
