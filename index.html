@@ -15,6 +15,7 @@
         <nav class="nav-links">
             <a href="#inicio">Inicio</a>
             <a href="#carreras">Colección Académica</a>
+            <a href="#tutoriales">Tutoriales</a>
             <a href="#historia">Biografía IA</a>
             <a href="#" onclick="abrirModalPassword(event)">Panel Administrador</a>
             <a href="#etica">Uso Ético</a>
@@ -32,9 +33,9 @@
                 <input type="text" id="input-buscar" placeholder="🔍 Buscar herramienta de IA o carrera..." onkeyup="buscarIA()">
             </div>
 
-            <!-- Botón del hero removido, se mantiene solo el de enlace académico -->
             <div class="hero-buttons">
                 <a href="#carreras" class="btn-primary">Ver Áreas Académicas</a>
+                <a href="#tutoriales" class="btn-secondary">Ver Tutoriales</a>
             </div>
         </div>
     </section>
@@ -52,17 +53,25 @@
         </div>
     </div>
 
-    <!-- Panel de Administración Protegido -->
+    <!-- Panel de Administración Protegido (Con gestión de IAs y Tutoriales) -->
     <section id="admin-panel" class="admin-section" style="display: none;">
         <div class="container admin-container">
             <div class="admin-header">
-                <h2>Panel de Gestión de IAs (Área Restringida)</h2>
+                <h2>Panel de Gestión del Sistema (Área Restringida)</h2>
                 <button onclick="cerrarAdminPanel()" class="btn-close">Cerrar panel</button>
             </div>
-            <p>Agrega, modifica o elimina herramientas del catálogo institucional de forma segura.</p>
+            <p>Agrega, modifica o elimina herramientas del catálogo o videos tutoriales de forma segura.</p>
             
+            <!-- Pestañas internas del Admin -->
+            <div style="display: flex; gap: 1rem; margin: 1.5rem 0;">
+                <button onclick="cambiarTabAdmin('ias')" id="tab-btn-ias" class="filter-btn active">Gestionar IAs</button>
+                <button onclick="cambiarTabAdmin('tutoriales')" id="tab-btn-tutos" class="filter-btn">Gestionar Tutoriales</button>
+            </div>
+
+            <!-- Formulario para IAs -->
             <form id="form-ia" onsubmit="guardarOActualizarIA(event)">
                 <input type="hidden" id="edit-index" value="">
+                <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.1rem;">📝 Registrar / Editar Herramienta de IA</h3>
                 
                 <div class="form-grid">
                     <div class="form-group">
@@ -91,19 +100,55 @@
                 </div>
                 
                 <div style="display: flex; gap: 1rem;">
-                    <button type="submit" id="btn-submit-form" class="btn-primary">💾 Guardar IA en la Categoría</button>
+                    <button type="submit" id="btn-submit-form" class="btn-primary">💾 Guardar IA</button>
                     <button type="button" id="btn-cancel-edit" onclick="resetearFormularioAdmin()" class="btn-secondary" style="display:none; color:#1e293b; border:1px solid #cbd5e1;">Cancelar Edición</button>
                 </div>
             </form>
 
+            <!-- Formulario para Tutoriales (Oculto por defecto hasta cambiar de pestaña) -->
+            <form id="form-tuto" onsubmit="guardarOActualizarTuto(event)" style="display: none;">
+                <input type="hidden" id="edit-index-tuto" value="">
+                <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.1rem;">🎥 Registrar / Editar Video Tutorial</h3>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="titulo-tuto">Título del Tutorial:</label>
+                        <input type="text" id="titulo-tuto" placeholder="Ej: Cómo usar ChatGPT desde cero..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="plataforma-tuto">Plataforma:</label>
+                        <select id="plataforma-tuto" required>
+                            <option value="YouTube">YouTube</option>
+                            <option value="TikTok">TikTok</option>
+                            <option value="Instagram">Instagram</option>
+                            <option value="Otro">Otra Plataforma</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="desc-tuto">Breve Descripción:</label>
+                    <input type="text" id="desc-tuto" placeholder="¿Qué aprenderán en este video?" required>
+                </div>
+                <div class="form-group">
+                    <label for="link-tuto">Enlace del Video (URL):</label>
+                    <input type="url" id="link-tuto" placeholder="https://youtube.com/... o https://tiktok.com/..." required>
+                </div>
+                
+                <div style="display: flex; gap: 1rem;">
+                    <button type="submit" id="btn-submit-tuto" class="btn-primary">💾 Guardar Tutorial</button>
+                    <button type="button" id="btn-cancel-edit-tuto" onclick="resetearFormularioTuto()" class="btn-secondary" style="display:none; color:#1e293b; border:1px solid #cbd5e1;">Cancelar Edición</button>
+                </div>
+            </form>
+
+            <!-- Tablas de Gestión en el Panel Admin -->
             <div class="admin-gestion-tabla" style="margin-top: 2.5rem;">
-                <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.2rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5rem;">🛠️ Administrar IAs Agregadas Localmente</h3>
+                <h3 id="titulo-tabla-gestion" style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.2rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5rem;">🛠️ Administrar Herramientas de IA Agregadas</h3>
                 <div style="overflow-x: auto;">
                     <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem;">
                         <thead>
                             <tr style="background-color: #f1f5f9; color: var(--color-primary);">
-                                <th style="padding: 10px; border-bottom: 1px solid #e2e8f0;">Nombre</th>
-                                <th style="padding: 10px; border-bottom: 1px solid #e2e8f0;">Categoría</th>
+                                <th style="padding: 10px; border-bottom: 1px solid #e2e8f0;">Nombre / Título</th>
+                                <th style="padding: 10px; border-bottom: 1px solid #e2e8f0;">Categoría / Plataforma</th>
                                 <th style="padding: 10px; border-bottom: 1px solid #e2e8f0;">Acciones</th>
                             </tr>
                         </thead>
@@ -136,6 +181,16 @@
         </div>
     </section>
 
+    <!-- Sección de Tutoriales en Video -->
+    <section id="tutoriales" class="container tutoriales-section">
+        <h2 class="section-title">🎥 Videotutoriales y Guías Prácticas</h2>
+        <p class="section-subtitle">Aprende a utilizar las herramientas de IA paso a paso mediante recursos audiovisuales recomendados:</p>
+        
+        <div class="grid-tutos" id="grid-tutos">
+            <!-- Los tutoriales dinámicos se inyectarán aquí -->
+        </div>
+    </section>
+
     <!-- Sección de Biografía / Historia de la IA -->
     <section id="historia" class="container history-section">
         <h2 class="section-title">Evolución y Biografía de la Inteligencia Artificial</h2>
@@ -163,7 +218,7 @@
     </section>
 
     <footer>
-        <p>&copy; 2026 Instituto Universitario de Mercadotecnia (ISUM) — Avance de Proyecto de Pasantías.</p>
+        <p>&copy; 2026 Instituto Universitario de Mercadotecnia (ISUM).</p>
     </footer>
 
     <script src="Biblioteca.js"></script>
