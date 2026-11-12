@@ -1,6 +1,5 @@
 const PASSWORD_ADMIN = "isum2026"; 
 
-// Base inicial con múltiples IAs por categoría
 let categoriasData = {
     marketing: {
         titulo: "IA para Mercadotecnia, Publicidad y Ventas",
@@ -77,7 +76,6 @@ document.addEventListener("DOMContentLoaded", () => {
     cargarDatosCompletos();
 });
 
-// Cargar catálogo público y tabla de administración
 function cargarDatosCompletos() {
     const grid = document.getElementById('grid-ia');
     const tablaBody = document.getElementById('tabla-admin-body');
@@ -88,7 +86,6 @@ function cargarDatosCompletos() {
     let extras = JSON.parse(localStorage.getItem('isum_ias_extras')) || [];
     let datosActuales = JSON.parse(JSON.stringify(categoriasData));
 
-    // Fusionar extras con las categorías correspondientes
     extras.forEach((item, index) => {
         if (datosActuales[item.categoria]) {
             datosActuales[item.categoria].ias.push({
@@ -98,7 +95,6 @@ function cargarDatosCompletos() {
             });
         }
 
-        // Llenar la tabla de administración con los elementos agregados localmente
         tablaBody.innerHTML += `
             <tr>
                 <td>${item.nombre}</td>
@@ -112,10 +108,9 @@ function cargarDatosCompletos() {
     });
 
     if (extras.length === 0) {
-        tablaBody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#9ca3af; padding: 15px;">No hay herramientas agregadas por administración aún.</td></tr>`;
+        tablaBody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#94a3b8; padding: 15px;">No hay herramientas agregadas por administración aún.</td></tr>`;
     }
 
-    // Renderizar tarjetas en la vista pública
     for (let key in datosActuales) {
         let cat = datosActuales[key];
         
@@ -140,14 +135,13 @@ function cargarDatosCompletos() {
             <div class="lista-opciones-ia">
                 ${listaHTML}
             </div>
-            <div class="card-status" style="margin-top:0.8rem; font-size:0.8rem; color:#8b5cf6;">Múltiples opciones disponibles</div>
+            <div class="card-status" style="margin-top:0.8rem; font-size:0.8rem; color:var(--color-accent);">Múltiples opciones disponibles</div>
         `;
 
         grid.appendChild(card);
     }
 }
 
-// Modal de Contraseña
 function abrirModalPassword(event) {
     if (event) event.preventDefault();
     document.getElementById('modal-password').style.display = 'flex';
@@ -179,7 +173,6 @@ function cerrarAdminPanel() {
     resetearFormularioAdmin();
 }
 
-// Guardar o Actualizar IA en LocalStorage
 function guardarOActualizarIA(event) {
     event.preventDefault();
 
@@ -204,7 +197,6 @@ function guardarOActualizarIA(event) {
     resetearFormularioAdmin();
 }
 
-// Cargar datos en el formulario para editar
 function cargarParaEditar(index) {
     let extras = JSON.parse(localStorage.getItem('isum_ias_extras')) || [];
     let item = extras[index];
@@ -223,7 +215,6 @@ function cargarParaEditar(index) {
     }
 }
 
-// Eliminar IA directamente con notificación Toast (sin el confirm feo del navegador)
 function eliminarIA(index) {
     let extras = JSON.parse(localStorage.getItem('isum_ias_extras')) || [];
     extras.splice(index, 1);
@@ -233,7 +224,6 @@ function eliminarIA(index) {
     mostrarNotificacion("🗑️ Herramienta eliminada correctamente.");
 }
 
-// Resetear formulario a modo creación
 function resetearFormularioAdmin() {
     document.getElementById('form-ia').reset();
     document.getElementById('edit-index').value = "";
