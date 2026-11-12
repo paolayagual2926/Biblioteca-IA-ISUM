@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca Virtual de IA | ISUM</title>
+    <link rel="stylesheet" href="EstiloBiblioteca.CSS">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo-container">
+            <span class="logo-text">ISUM</span>
+            <span class="logo-subtitle">Biblioteca Virtual de IA</span>
+        </div>
+        <nav class="nav-links">
+            <a href="#inicio">Inicio</a>
+            <a href="#carreras">Colección Académica</a>
+            <a href="#" onclick="abrirModalPassword(event)">Panel Admin 🔒</a>
+            <a href="#etica">Uso Ético</a>
+        </nav>
+    </header>
+
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <h1>Biblioteca Virtual de Inteligencia Artificial</h1>
+            <p class="hero-description">
+                Plataforma orientada a la centralización, categorización y promoción del uso ético de herramientas algorítmicas en el entorno académico y profesional de la comunidad universitaria.
+            </p>
+            
+            <div class="search-container">
+                <input type="text" id="input-buscar" placeholder="🔍 Buscar herramienta de IA o carrera..." onkeyup="buscarIA()">
+            </div>
+
+            <div class="hero-buttons">
+                <a href="#carreras" class="btn-primary">Ver Áreas Académicas</a>
+                <button onclick="abrirModalPassword(event)" class="btn-secondary">⚙️ Acceso Administrador</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal de Contraseña Personalizado -->
+    <div id="modal-password" class="modal-overlay" style="display: none;">
+        <div class="modal-box">
+            <h3>🔒 Acceso Restringido</h3>
+            <p>Ingrese la contraseña de Administrador para gestionar el sistema:</p>
+            <input type="password" id="input-admin-pass" placeholder="Contraseña...">
+            <div class="modal-buttons">
+                <button onclick="verificarPassword()" class="btn-primary">Entrar</button>
+                <button onclick="cerrarModalPassword()" class="btn-secondary" style="color:#fff; border:1px solid #374151;">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel de Administración Protegido (Con Formulario y Tabla de Gestión) -->
+    <section id="admin-panel" class="admin-section" style="display: none;">
+        <div class="container admin-container">
+            <div class="admin-header">
+                <h2>Panel de Gestión de IAs (Área Restringida)</h2>
+                <button onclick="cerrarAdminPanel()" class="btn-close">❌ Cerrar Panel</button>
+            </div>
+            <p>Agrega, modifica o elimina herramientas del catálogo institucional de forma segura.</p>
+            
+            <!-- Formulario (Sirve tanto para crear como para editar) -->
+            <form id="form-ia" onsubmit="guardarOActualizarIA(event)">
+                <input type="hidden" id="edit-index" value=""> <!-- Campo oculto para saber si estamos editando -->
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="nombre-ia">Nombre de la Herramienta:</label>
+                        <input type="text" id="nombre-ia" placeholder="Ej: ChatGPT, Claude, Gamma..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="categoria-ia">Carrera / Área Asociada:</label>
+                        <select id="categoria-ia" required>
+                            <option value="marketing">Mercadotecnia</option>
+                            <option value="administracion">Administración & RRHH</option>
+                            <option value="contaduria">Contaduría & Fiscalidad</option>
+                            <option value="informatica">Informática</option>
+                            <option value="docentes">Docencia</option>
+                            <option value="especial">Prompting & Ética</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="desc-ia">Descripción de la Herramienta:</label>
+                    <textarea id="desc-ia" rows="3" placeholder="¿Para qué sirve y si es gratuita/freemium?" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="link-ia">Enlace Web (URL directa que funcione):</label>
+                    <input type="url" id="link-ia" placeholder="https://..." required>
+                </div>
+                
+                <div style="display: flex; gap: 1rem;">
+                    <button type="submit" id="btn-submit-form" class="btn-primary">💾 Guardar IA en la Categoría</button>
+                    <button type="button" id="btn-cancel-edit" onclick="resetearFormularioAdmin()" class="btn-secondary" style="display:none; color:#fff; border:1px solid #374151;">Cancelar Edición</button>
+                </div>
+            </form>
+
+            <!-- Tabla de gestión exclusiva para Administradores -->
+            <div class="admin-gestion-tabla" style="margin-top: 2.5rem;">
+                <h3 style="color: #fff; margin-bottom: 1rem; font-size: 1.2rem; border-bottom: 1px solid #374151; padding-bottom: 0.5rem;">🛠️ Administrar IAs Agregadas Localmente</h3>
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem;">
+                        <thead>
+                            <tr style="background-color: #121218; color: #a78bfa;">
+                                <th style="padding: 10px; border-bottom: 1px solid #374151;">Nombre</th>
+                                <th style="padding: 10px; border-bottom: 1px solid #374151;">Categoría</th>
+                                <th style="padding: 10px; border-bottom: 1px solid #374151;">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-admin-body">
+                            <!-- Se llena dinámicamente mediante JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="carreras" class="container">
+        <h2 class="section-title">Colección Especial por Carreras y Áreas</h2>
+        <p class="section-subtitle">Selecciona una categoría o expande las tarjetas para ver múltiples opciones de IA (enfocadas en acceso gratuito):</p>
+        
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filtrarCategoria('todas', event)">Todas</button>
+            <button class="filter-btn" onclick="filtrarCategoria('marketing', event)">Mercadotecnia</button>
+            <button class="filter-btn" onclick="filtrarCategoria('administracion', event)">Administración & RRHH</button>
+            <button class="filter-btn" onclick="filtrarCategoria('contaduria', event)">Contaduría & Fiscalidad</button>
+            <button class="filter-btn" onclick="filtrarCategoria('informatica', event)">Informática</button>
+            <button class="filter-btn" onclick="filtrarCategoria('docentes', event)">Docencia</button>
+            <button class="filter-btn" onclick="filtrarCategoria('especial', event)">Prompting & Ética</button>
+        </div>
+
+        <div class="grid-ia" id="grid-ia">
+            <!-- Las tarjetas dinámicas se inyectarán aquí -->
+        </div>
+    </section>
+
+    <section id="etica" class="ethics-section">
+        <div class="container">
+            <h2>Uso Ético de la IA</h2>
+            <p>
+            En el Instituto Universitario de Mercadotecnia (ISUM), promovemos el uso de las tecnologías algorítmicas como herramientas complementarias para potenciar el análisis académico y profesional, bajo criterios rigurosos de honestidad intelectual, transparencia e integridad.
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Instituto Universitario de Mercadotecnia (ISUM) — Avance de Proyecto de Pasantías.</p>
+    </footer>
+
+    <script src="Biblioteca.js"></script>
+</body>
+</html>
