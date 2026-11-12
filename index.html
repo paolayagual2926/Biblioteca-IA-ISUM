@@ -14,6 +14,7 @@
         </div>
         <nav class="nav-links">
             <a href="#inicio">Inicio</a>
+            <a href="#historia">¿Qué es la IA?</a>
             <a href="#carreras">Colección Académica</a>
             <a href="#" onclick="abrirModalPassword(event)">Panel Admin 🔒</a>
             <a href="#etica">Uso Ético</a>
@@ -38,6 +39,23 @@
         </div>
     </section>
 
+    <!-- Sección de Biografía / Historia de la IA -->
+    <section id="historia" class="container history-section">
+        <h2 class="section-title">Evolución y Biografía de la Inteligencia Artificial</h2>
+        <p class="section-subtitle">Breve recorrido histórico sobre cómo la computación pasó de la teoría a transformar el ámbito académico y laboral.</p>
+        
+        <div class="history-grid">
+            <div class="history-card">
+                <h3>🧠 Orígenes y Fundamentos</h3>
+                <p>La Inteligencia Artificial (IA) nace formalmente a mediados del siglo XX (década de 1950), cuando pioneros como Alan Turing plantearon si las máquinas podían llegar a pensar. Desde entonces, ha evolucionado desde sistemas basados en reglas lógicas hasta modelos de aprendizaje profundo capaces de procesar lenguaje natural.</p>
+            </div>
+            <div class="history-card">
+                <h3>🚀 Impacto en la Educación Superior</h3>
+                <p>En la actualidad, la IA se ha consolidado como un habilitador clave para la productividad, la investigación y la automatización de procesos. En instituciones como el ISUM, su integración busca potenciar las competencias profesionales bajo un enfoque crítico, analítico y ético.</p>
+            </div>
+        </div>
+    </section>
+
     <!-- Modal de Contraseña Personalizado -->
     <div id="modal-password" class="modal-overlay" style="display: none;">
         <div class="modal-box">
@@ -46,12 +64,12 @@
             <input type="password" id="input-admin-pass" placeholder="Contraseña...">
             <div class="modal-buttons">
                 <button onclick="verificarPassword()" class="btn-primary">Entrar</button>
-                <button onclick="cerrarModalPassword()" class="btn-secondary" style="color:#fff; border:1px solid #374151;">Cancelar</button>
+                <button onclick="cerrarModalPassword()" class="btn-secondary" style="color:#1e293b; border:1px solid #cbd5e1;">Cancelar</button>
             </div>
         </div>
     </div>
 
-    <!-- Panel de Administración Protegido (Con Formulario y Tabla de Gestión) -->
+    <!-- Panel de Administración Protegido -->
     <section id="admin-panel" class="admin-section" style="display: none;">
         <div class="container admin-container">
             <div class="admin-header">
@@ -60,9 +78,8 @@
             </div>
             <p>Agrega, modifica o elimina herramientas del catálogo institucional de forma segura.</p>
             
-            <!-- Formulario (Sirve tanto para crear como para editar) -->
             <form id="form-ia" onsubmit="guardarOActualizarIA(event)">
-                <input type="hidden" id="edit-index" value=""> <!-- Campo oculto para saber si estamos editando -->
+                <input type="hidden" id="edit-index" value="">
                 
                 <div class="form-grid">
                     <div class="form-group">
@@ -92,20 +109,19 @@
                 
                 <div style="display: flex; gap: 1rem;">
                     <button type="submit" id="btn-submit-form" class="btn-primary">💾 Guardar IA en la Categoría</button>
-                    <button type="button" id="btn-cancel-edit" onclick="resetearFormularioAdmin()" class="btn-secondary" style="display:none; color:#fff; border:1px solid #374151;">Cancelar Edición</button>
+                    <button type="button" id="btn-cancel-edit" onclick="resetearFormularioAdmin()" class="btn-secondary" style="display:none; color:#1e293b; border:1px solid #cbd5e1;">Cancelar Edición</button>
                 </div>
             </form>
 
-            <!-- Tabla de gestión exclusiva para Administradores -->
             <div class="admin-gestion-tabla" style="margin-top: 2.5rem;">
-                <h3 style="color: #fff; margin-bottom: 1rem; font-size: 1.2rem; border-bottom: 1px solid #374151; padding-bottom: 0.5rem;">🛠️ Administrar IAs Agregadas Localmente</h3>
+                <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.2rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5rem;">🛠️ Administrar IAs Agregadas Localmente</h3>
                 <div style="overflow-x: auto;">
                     <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem;">
                         <thead>
-                            <tr style="background-color: #121218; color: #a78bfa;">
-                                <th style="padding: 10px; border-bottom: 1px solid #374151;">Nombre</th>
-                                <th style="padding: 10px; border-bottom: 1px solid #374151;">Categoría</th>
-                                <th style="padding: 10px; border-bottom: 1px solid #374151;">Acciones</th>
+                            <tr style="background-color: #f1f5f9; color: var(--color-primary);">
+                                <th style="padding: 10px; border-bottom: 1px solid #e2e8f0;">Nombre</th>
+                                <th style="padding: 10px; border-bottom: 1px solid #e2e8f0;">Categoría</th>
+                                <th style="padding: 10px; border-bottom: 1px solid #e2e8f0;">Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="tabla-admin-body">
@@ -146,7 +162,7 @@
     </section>
 
     <footer>
-        <p>&copy; 2026 Instituto Universitario de Mercadotecnia (ISUM).</p>
+        <p>&copy; 2026 Instituto Universitario de Mercadotecnia (ISUM) — Avance de Proyecto de Pasantías.</p>
     </footer>
 
     <script src="Biblioteca.js"></script>
