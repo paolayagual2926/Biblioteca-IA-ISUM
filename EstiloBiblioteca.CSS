@@ -1,11 +1,11 @@
 :root {
-    --color-primary: #121218;
-    --color-secondary: #1a1a24;
-    --color-accent: #8b5cf6;
-    --color-accent-hover: #7c3aed;
-    --color-bg-light: #0b0b0f;
-    --color-text-dark: #f3f4f6;
-    --color-text-muted: #9ca3af;
+    --color-primary: #0a192f;        /* Azul Marino institucional */
+    --color-secondary: #172a45;      /* Azul oscuro secundario */
+    --color-accent: #f97316;         /* Naranja institucional vibrante */
+    --color-accent-hover: #ea580c;   /* Naranja más oscuro para hover */
+    --color-bg-light: #020c1b;       /* Fondo general profundo */
+    --color-text-dark: #f3f4f6;      /* Texto claro */
+    --color-text-muted: #94a3b8;     /* Texto secundario grisáceo */
     --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -33,8 +33,8 @@ body {
     position: sticky;
     top: 0;
     z-index: 1000;
-    border-bottom: 1px solid rgba(139, 92, 246, 0.2);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    border-bottom: 1px solid rgba(249, 115, 22, 0.3);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
 }
 
 .logo-container {
@@ -57,7 +57,7 @@ body {
 }
 
 .nav-links a {
-    color: #d1d5db;
+    color: #cbd5e1;
     text-decoration: none;
     margin-left: 1.5rem;
     font-weight: 500;
@@ -70,7 +70,7 @@ body {
 }
 
 .hero {
-    background: linear-gradient(135deg, #1a1a24 0%, #121218 100%);
+    background: linear-gradient(135deg, #172a45 0%, #0a192f 100%);
     color: #ffffff;
     padding: 4rem 10% 5rem 10%;
     text-align: center;
@@ -99,7 +99,7 @@ body {
     width: 100%;
     padding: 0.9rem 1.2rem;
     border-radius: 30px;
-    border: 1px solid rgba(139, 92, 246, 0.3);
+    border: 1px solid rgba(249, 115, 22, 0.4);
     background-color: var(--color-secondary);
     color: #ffffff;
     font-size: 1rem;
@@ -108,7 +108,7 @@ body {
 }
 
 .search-container input::placeholder {
-    color: #6b7280;
+    color: #64748b;
 }
 
 .hero-buttons {
@@ -159,7 +159,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgba(0, 0, 0, 0.8);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -171,7 +171,7 @@ body {
     background-color: var(--color-secondary);
     padding: 2.5rem;
     border-radius: 12px;
-    border: 1px solid rgba(139, 92, 246, 0.4);
+    border: 1px solid rgba(249, 115, 22, 0.4);
     box-shadow: 0 10px 30px rgba(0,0,0,0.6);
     width: 100%;
     max-width: 400px;
@@ -194,8 +194,8 @@ body {
     width: 100%;
     padding: 0.8rem;
     border-radius: 6px;
-    border: 1px solid #374151;
-    background-color: #121218;
+    border: 1px solid #334155;
+    background-color: var(--color-primary);
     color: #ffffff;
     font-size: 1rem;
     margin-bottom: 1.2rem;
@@ -209,13 +209,13 @@ body {
 }
 
 .admin-section {
-    background-color: #1a1a24;
+    background-color: #172a45;
     border-bottom: 3px solid var(--color-accent);
     padding: 2rem 0;
 }
 
 .admin-container {
-    background: #121218;
+    background: var(--color-primary);
     border: 1px solid rgba(255,255,255,0.05);
     padding: 2rem;
     border-radius: 10px;
@@ -258,13 +258,13 @@ body {
 .form-group label {
     font-weight: 600;
     margin-bottom: 0.4rem;
-    color: #d1d5db;
+    color: #cbd5e1;
 }
 
 .form-group input, .form-group select, .form-group textarea {
     padding: 0.75rem;
-    border: 1px solid #374151;
-    background-color: #1a1a24;
+    border: 1px solid #334155;
+    background-color: #172a45;
     color: #ffffff;
     border-radius: 6px;
     font-family: inherit;
@@ -300,8 +300,8 @@ body {
 
 .filter-btn {
     background-color: var(--color-secondary);
-    border: 1px solid #374151;
-    color: #d1d5db;
+    border: 1px solid #334155;
+    color: #cbd5e1;
     padding: 0.5rem 1.2rem;
     border-radius: 20px;
     cursor: pointer;
@@ -326,7 +326,7 @@ body {
     background-color: var(--color-secondary);
     border-radius: 8px;
     padding: 1.5rem;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     border: 1px solid rgba(255,255,255,0.05);
     display: flex;
     flex-direction: column;
@@ -336,8 +336,8 @@ body {
 
 .card-ia:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(139, 92, 246, 0.2);
-    border-color: rgba(139, 92, 246, 0.4);
+    box-shadow: 0 8px 20px rgba(249, 115, 22, 0.2);
+    border-color: rgba(249, 115, 22, 0.4);
 }
 
 .badge {
@@ -350,7 +350,7 @@ body {
     margin-bottom: 0.8rem;
 }
 
-.badge.marketing { background-color: rgba(139, 92, 246, 0.15); color: #a78bfa; }
+.badge.marketing { background-color: rgba(249, 115, 22, 0.15); color: #fb923c; }
 .badge.administracion { background-color: rgba(16, 185, 129, 0.15); color: #34d399; }
 .badge.contaduria { background-color: rgba(245, 158, 11, 0.15); color: #fbbf24; }
 .badge.informatica { background-color: rgba(59, 130, 246, 0.15); color: #60a5fa; }
@@ -361,7 +361,7 @@ body {
     margin-bottom: 0.8rem;
     color: #ffffff;
     font-size: 1.2rem;
-    border-bottom: 2px solid #374151;
+    border-bottom: 2px solid #334155;
     padding-bottom: 0.4rem;
 }
 
@@ -376,7 +376,7 @@ body {
 }
 
 .item-ia-opcion {
-    background: #121218;
+    background: var(--color-primary);
     border-left: 3px solid var(--color-accent);
     padding: 0.7rem;
     border-radius: 4px;
@@ -414,12 +414,12 @@ body {
 .admin-gestion-tabla table th, 
 .admin-gestion-tabla table td {
     padding: 12px 10px;
-    border-bottom: 1px solid #374151;
+    border-bottom: 1px solid #334155;
     color: #f3f4f6;
 }
 
 .admin-gestion-tabla table tr:hover {
-    background-color: rgba(139, 92, 246, 0.05);
+    background-color: rgba(249, 115, 22, 0.05);
 }
 
 .btn-accion-editar {
@@ -507,7 +507,7 @@ body {
 
 footer {
     background-color: var(--color-primary);
-    color: #6b7280;
+    color: #64748b;
     text-align: center;
     padding: 1.5rem;
     font-size: 0.9rem;
